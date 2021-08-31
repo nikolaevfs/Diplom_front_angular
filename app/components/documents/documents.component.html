@@ -1,0 +1,73 @@
+<div>
+    <app-toolbar [inputSideNav]="sideNav"></app-toolbar>
+    <mat-sidenav-container>
+        <mat-sidenav #sideNav mode="side" opened>
+            <div class="sidenav">
+                <mat-toolbar>Navigation</mat-toolbar>
+
+                <mat-list>
+                    <a routerLink="/home">
+                        <mat-list-item>Home page</mat-list-item>
+                    </a>
+                    <a routerLink="/group">
+                        <mat-list-item>Group</mat-list-item>
+                    </a>
+                    <a routerLink="/dialogs">
+                        <mat-list-item>Dialogs</mat-list-item>
+                    </a>
+                    <a routerLink="/documents">
+                        <mat-list-item>Documents</mat-list-item>
+                    </a>
+
+                </mat-list>
+            </div>
+        </mat-sidenav>
+        <mat-sidenav-content class="home">
+
+            <div class="container" style="margin-top: 20px; min-height: 100%;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Your group's files</h4>
+                    </div><br>
+                    <div class="panel-body">
+                        <strong *ngIf="admin==='true'">Select files from your computer</strong>
+                        <div *ngIf="fileStatus.status==='progress'">
+                            <div class="progress">
+                                <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                    {{ fileStatus.requestType }} {{ fileStatus.percent }}
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <form enctype="multipart/form-data" *ngIf="admin==='true'">
+                            <fieldset>
+                                <div class="form-group">
+                                    <div>
+                                        <input type="file" (change)="onUploadFiles($event.target.files)" name="files" multiple class="form-control" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                        <br>
+
+                        <div *ngIf="filenames?.length > 0" class="js-upload-finished">
+                            <h3>Processed files</h3>
+                            <div *ngFor="let filename of filenames" class="list-group">
+                                <a class="list-group-item list-group-item-success" style="cursor: pointer;">
+                      {{ filename }}            
+                      <a (click)="onDownloadFile(filename)" class="alert-success float-right">Download</a><br>
+                                <a (click)="onDeleteFile(filename)" class="alert-success float-right">Delete</a>
+                                </a>
+                                <br>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

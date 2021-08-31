@@ -1,0 +1,72 @@
+<div fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="28">
+        <mat-toolbar>Login page</mat-toolbar>
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="Login">
+                <ng-template matTabContent>
+                    <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="formGroup" (ngSubmit)="loginProcess()">
+                        <mat-form-field>
+                            <input matInput placeholder="Username" formControlName="username">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput placeholder="Password" type="password" formControlName="password">
+                        </mat-form-field>
+                        <button mat-raised-button type="submit">Login</button>
+                    </form>
+                </ng-template>
+
+            </mat-tab>
+
+
+            <mat-tab label="Registration">
+                <ng-template matTabContent>
+                    <mat-checkbox class="example-margin" [(ngModel)]="checkBoxValue" [ngModelOptions]="{standalone: true}">Headman</mat-checkbox>
+
+                    <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="formGroupReg" (ngSubmit)="registrationProcess()">
+
+                        <mat-form-field>
+                            <input matInput required placeholder="Username" formControlName="username">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput required placeholder="First name" formControlName="firstName">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput required placeholder="Last name" formControlName="lastName">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput email required placeholder="email" formControlName="email">
+                        </mat-form-field>
+
+                        <mat-form-field *ngIf="checkBoxValue">
+                            <input matInput required placeholder=" Student group" formControlName="studentGroup">
+                        </mat-form-field>
+
+
+                        <mat-form-field *ngIf="!checkBoxValue">
+                            <mat-label>Group name</mat-label>
+                            <select matNativeControl required formControlName="studentGroup">
+                              <option *ngFor="let groupName of groupNames">
+                                  {{ groupName }}   
+                              </option>
+                            </select>
+                        </mat-form-field>
+
+
+                        <mat-form-field>
+                            <input matInput required placeholder="Password " type="password" formControlName="password">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput required placeholder="Confirm password " type="password" formControlName="password2">
+                        </mat-form-field>
+                        <button mat-raised-button type="submit ">Register</button>
+                    </form>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+
+    </mat-card>
+</div>

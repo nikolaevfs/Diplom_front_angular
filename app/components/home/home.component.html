@@ -1,0 +1,108 @@
+<div>
+    <app-toolbar [inputSideNav]="sideNav"></app-toolbar>
+    <mat-sidenav-container>
+        <mat-sidenav #sideNav mode="side" closed>
+            <div class="sidenav">
+                <mat-toolbar>Navigation</mat-toolbar>
+
+                <mat-list>
+                    <a routerLink="/home">
+                        <mat-list-item>Home page</mat-list-item>
+                    </a>
+                    <a routerLink="/group">
+                        <mat-list-item>Group</mat-list-item>
+                    </a>
+                    <a routerLink="/dialogs">
+                        <mat-list-item>Dialogs</mat-list-item>
+                    </a>
+                    <a routerLink="/documents">
+                        <mat-list-item>Documents</mat-list-item>
+                    </a>
+
+                </mat-list>
+            </div>
+        </mat-sidenav>
+        <mat-sidenav-content>
+
+            <div *ngIf="!adding && !updating" fxLayoutAlign="center center" class="homecard">
+                <mat-card class="card">
+                    <mat-card-header>
+                        <div mat-card-avatar>
+                            <mat-icon>person</mat-icon>
+                        </div>
+                        <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+                        <mat-card-subtitle>{{user.username}}</mat-card-subtitle>
+                    </mat-card-header>
+                    Group: {{user.group.name}} <br> Email: {{user.email}}
+                    <p *ngIf="admin">Role: Headman</p>
+                    <p *ngIf="!admin">Role: Student</p>
+
+                    <form>
+                        <button mat-raised-button (click)="viewUpdating()">Update user's data</button><br>
+                        <button mat-raised-button type="button" (click)="viewAdding()">Add group event</button>
+                        <button mat-raised-button type="button" (click)="viewAdding()">All events</button>
+                    </form>
+                </mat-card>
+
+
+
+            </div>
+
+            <div class="calendar">
+                <app-calendar></app-calendar>
+            </div>
+
+
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+    <div *ngIf="adding" class="popups_inner active" fxLayoutAlign="center center">
+        <div class="popup">
+            <mat-card fxFlex="28">
+                <mat-toolbar>Add new event</mat-toolbar>
+
+                <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="formGroupEvent" (ngSubmit)="addEvent()">
+                    <mat-form-field>
+                        <input matInput placeholder="Title" formControlName="title">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="date" placeholder="Start date" formControlName="start">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="date" placeholder="End date" formControlName="end">
+                    </mat-form-field>
+                    <button mat-raised-button type="submit">Submit</button>
+                    <button mat-raised-button (click)="back()">Back</button>
+                </form>
+
+            </mat-card>
+        </div>
+    </div>
+
+
+    <div *ngIf="updating" class="popups_inner active" fxLayoutAlign="center center">
+        <div class="popup">
+            <mat-card fxFlex="28">
+                <mat-toolbar>Update your info</mat-toolbar>
+
+                <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="formUpdateUser" (ngSubmit)="updateData()">
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="user.firstName" placeholder="First name" formControlName="firstName">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="user.lastName" placeholder="Last name" formControlName="lastName">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="user.username" placeholder="Username" formControlName="username">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="text" [(ngModel)]="user.email" placeholder="Email" formControlName="email">
+                    </mat-form-field>
+                    <button mat-raised-button type="submit">Submit</button>
+                    <button mat-raised-button type="button" (click)="back()">Back</button>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+
+</div>

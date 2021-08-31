@@ -1,0 +1,58 @@
+<div>
+    <app-toolbar [inputSideNav]="sideNav"></app-toolbar>
+    <mat-sidenav-container>
+        <mat-sidenav #sideNav mode="side" opened>
+            <div class="sidenav">
+                <mat-toolbar>SuperAdmin nav</mat-toolbar>
+
+                <mat-list>
+                    <a routerLink="/adminusers">
+                        <mat-list-item>All users</mat-list-item>
+                    </a>
+                    <a routerLink="/admingroups">
+                        <mat-list-item>All Groups</mat-list-item>
+                    </a>
+                </mat-list>
+            </div>
+        </mat-sidenav>
+        <mat-sidenav-content>
+
+            <div class="home">
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Username" id="search">
+
+                </mat-form-field>
+
+
+
+                <div>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Deliting</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of students">
+                                <td><span>{{student.firstName}}</span></td>
+                                <td><span>{{student.lastName}}</span></td>
+                                <td><span>{{student.username}}</span></td>
+                                <td><span>{{student.email}}</span></td>
+                                <td><span>
+                                  <button class="btn btn-sm btn-danger" (click)="deleteUser(student)">
+                                      <i class="fa fa-remove"></i>Delete
+                                  </button>
+                              </span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

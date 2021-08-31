@@ -1,0 +1,58 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+<app-toolbar [inputSideNav]="sideNav"></app-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav #sideNav mode="side" opened>
+        <div class="sidenav">
+            <mat-toolbar>Navigation</mat-toolbar>
+
+            <mat-list>
+                <a routerLink="/home">
+                    <mat-list-item>Home page</mat-list-item>
+                </a>
+                <a routerLink="/group">
+                    <mat-list-item>Group</mat-list-item>
+                </a>
+                <a routerLink="/dialogs">
+                    <mat-list-item>Dialogs</mat-list-item>
+                </a>
+                <a routerLink="/documents">
+                    <mat-list-item>Documents</mat-list-item>
+                </a>
+
+            </mat-list>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="home">
+
+            <div #scrolled class="feed" [scrollTop]="100">
+
+                <div *ngFor="let message of (messages | async)" class="message">
+                    <div class="messageContainer" [ngClass]="{'isOwnMessageContainer':(message.username==me)}">
+                        <div class="messageData" [ngClass]="{'isOwnMessageData':(message.username==me)}">
+                            <span class="sender" [ngClass]="{'isOwnSender':(message.username==me)}">
+                                      {{ message.username }}
+                                  </span>
+                            <span class="timestamp" [ngClass]="{'isOwnTimestamp':(message.username==me)}">
+                                      {{ message.timeSent | date:'medium' }}
+                                  </span>
+                        </div>
+                        <div class="messageContent" [ngClass]="{'isOwnMessageContent':(message.username==me)}">
+                            {{ message.text }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="chatFormWrapper">
+                <input class="chatInput" [(ngModel)]="message" (keydown)="handleSubmit($event)" />
+                <button class="chatButton" (click)="send()">Send</button>
+            </div>
+
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

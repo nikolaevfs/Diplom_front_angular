@@ -1,0 +1,20 @@
+<div>
+    <app-toolbar [inputSideNav]="sideNav"></app-toolbar>
+    <mat-sidenav-container>
+        <mat-sidenav #sideNav mode="side" opened>
+            <div class="sidenav">
+                hello
+
+                <ul>
+                    <li class active><a routerLink="/">Home page</a></li>
+                    <li><a routerLink="/">Dialogs</a></li>
+                    <li><a routerLink="/">Timetable</a></li>
+
+                </ul>
+            </div>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <app-home></app-home>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
